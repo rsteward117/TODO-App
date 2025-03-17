@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { AuthContext } from '../authContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { BACKEND_URL } from './config';
 
 function Home() {
   const { user, jsonwebtoken } = useContext(AuthContext);
@@ -12,7 +13,7 @@ function Home() {
   useEffect(() => {
     async function getUserTasks() {
       try {
-        const res = await axios.get('http://localhost:5000/api/task/getTasks', {
+        const res = await axios.get(`${BACKEND_URL}/api/task/getTasks`, {
           headers: { Authorization: `Bearer ${jsonwebtoken}` },
         });
         setTasks(res.data.tasks);
@@ -25,7 +26,7 @@ function Home() {
 
   const deleteTask = async (taskId) => {
     try {
-      await axios.delete(`http://localhost:5000/api/task/${taskId}/deleteTask`, {
+      await axios.delete(`${BACKEND_URL}/api/task/${taskId}/deleteTask`, {
         headers: { Authorization: `Bearer ${jsonwebtoken}` },
       });
       window.location.reload();

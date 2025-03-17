@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { AuthContext } from '../authContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { BACKEND_URL } from './config';
 
 const CreateTask = () => {
   const { jsonwebtoken } = useContext(AuthContext);
@@ -18,7 +19,7 @@ const CreateTask = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        'http://localhost:5000/api/task/createTask',
+        `${BACKEND_URL}/api/task/createTask`,
         formData,
         {
           headers: { Authorization: `Bearer ${jsonwebtoken}` },
