@@ -1,0 +1,15 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1A1A1D; 
+    padding: 10px 10px; 
+    border-bottom: 4px solid #FFD700; 
+    position: fixed;
+    width: 100%; 
+    top: 0;
+    left: 0; 
+    z-index: 1000;
+    font-family: 'Cinzel', serif;
+    box-sizing: border-box;
+  }
