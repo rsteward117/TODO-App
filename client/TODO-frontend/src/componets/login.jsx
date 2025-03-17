@@ -2,7 +2,7 @@ import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../authContext';
-import { BACKEND_URL } from './config';
+import { BACKEND_URL } from '../config';
 
 function Login() {
   const { user, setUser, jsonwebtoken, setJsonwebtoken } = useContext(AuthContext);

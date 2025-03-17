@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { AuthContext } from '../authContext';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import { BACKEND_URL } from './config';
+import { BACKEND_URL } from '../config';
 
 const EditTask = () => {
   const { jsonwebtoken } = useContext(AuthContext);

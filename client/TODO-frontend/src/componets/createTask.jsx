@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { AuthContext } from '../authContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { BACKEND_URL } from './config';
+import { BACKEND_URL } from '../config';
 
 const CreateTask = () => {
   const { jsonwebtoken } = useContext(AuthContext);
