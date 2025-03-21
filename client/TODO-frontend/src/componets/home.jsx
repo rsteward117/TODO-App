@@ -13,10 +13,10 @@ function Home() {
   useEffect(() => {
     async function getUserTasks() {
       try {
-        const res = await axios.get(`${BACKEND_URL}/api/task/getTasks`, {
+        const res = await axios.get(`http://localhost:5000/api/task/getTasks`, {
           headers: { Authorization: `Bearer ${jsonwebtoken}` },
         });
-        setTasks(res.data.tasks);
+        setTasks(res.data.tasks || []);
       } catch (err) {
         setGetErrors("Failed to load tasks");
       }
@@ -26,7 +26,7 @@ function Home() {
 
   const deleteTask = async (taskId) => {
     try {
-      await axios.delete(`${BACKEND_URL}/api/task/${taskId}/deleteTask`, {
+      await axios.delete(`http://localhost:5000/api/task/${taskId}/deleteTask`, {
         headers: { Authorization: `Bearer ${jsonwebtoken}` },
       });
       window.location.reload();
@@ -37,6 +37,23 @@ function Home() {
 
   const editTask = (taskId) => {
     navigate(`/editTask/${taskId}`);
+  };
+  console.log(tasks);
+
+  const handleTaskCompletion = async (taskId, currentStatus) => {
+    // Only update if the task is not already completed.
+    if (currentStatus) return;
+    try {
+      await axios.put(`http://localhost:5000/api/task/${taskId}/complete`, {}, {
+        headers: { Authorization: `Bearer ${jsonwebtoken}` },
+      });
+      // Option 1: reload tasks
+      window.location.reload();
+      // Option 2: update state directly:
+      // setTasks(tasks.map(task => task._id === taskId ? { ...task, completed: true } : task));
+    } catch (err) {
+      setGetErrors(err.response?.data?.message || "Failed to update task");
+    }
   };
 
   return (
@@ -92,6 +109,17 @@ function Home() {
                     <p className="card-text flex-grow-1">
                       {task.description}
                     </p>
+                    <div className="mb-2">
+                      <input 
+                        type="checkbox" 
+                        checked={task.completed}
+                        onChange={() => handleTaskCompletion(task._id, task.completed)}
+                      />
+                      <span className="ms-2">
+                        {task.completed ? 'Completed' : 'Not Completed'}
+                      </span>
+                    </div>
+
                     <div>
                       <button 
                         className="btn btn-primary me-2" 

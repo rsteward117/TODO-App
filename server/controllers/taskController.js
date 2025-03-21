@@ -19,10 +19,26 @@ exports.get_user_tasks = asyncHandler(async (req, res, next) => {
 
   exports.delete_task = asyncHandler(async (req, res, next) => {
     const taskId = req.params.taskId;
-    console.log(taskId);
     await Task.findByIdAndDelete(taskId);
     res.status(200).json({ message: "Task was deleted" });
 });
+
+
+exports.complete_task = asyncHandler(async (req, res, next) => {
+    const taskId = req.params.taskId;
+
+    const task = await Task.findByIdAndUpdate(
+        taskId,
+        { completed: true },
+        { new: true }
+    );
+
+    res.json({
+        success: true,
+        data: task
+    });
+});
+
 
 exports.create_task = [
     body("title")
@@ -72,3 +88,4 @@ exports.update_task = [
         }
     })
 ];
+

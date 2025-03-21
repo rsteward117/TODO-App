@@ -19,7 +19,7 @@ const EditTask = () => {
   useEffect(() => {
     const fetchTask = async () => {
       try {
-        const res = await axios.get(`${BACKEND_URL}/api/task/${taskId}`, {
+        const res = await axios.get(`http://localhost:5000/api/task/${taskId}`, {
           headers: { Authorization: `Bearer ${jsonwebtoken}` },
         });
         setFormData({
@@ -37,7 +37,7 @@ const EditTask = () => {
     e.preventDefault();
     try {
       await axios.put(
-        `${BACKEND_URL}/api/task/${taskId}/UpdateTask`,
+        `http://localhost:5000/api/task/${taskId}/UpdateTask`,
         formData,
         {
           headers: { Authorization: `Bearer ${jsonwebtoken}` },
