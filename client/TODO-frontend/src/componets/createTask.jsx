@@ -19,7 +19,7 @@ const CreateTask = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        `http://localhost:5000/api/task/createTask`,
+        `${BACKEND_URL}/api/task/createTask`,
         formData,
         {
           headers: { Authorization: `Bearer ${jsonwebtoken}` },

@@ -13,7 +13,7 @@ function Home() {
   useEffect(() => {
     async function getUserTasks() {
       try {
-        const res = await axios.get(`http://localhost:5000/api/task/getTasks`, {
+        const res = await axios.get(`${BACKEND_URL}/api/task/getTasks`, {
           headers: { Authorization: `Bearer ${jsonwebtoken}` },
         });
         setTasks(res.data.tasks || []);
@@ -26,7 +26,7 @@ function Home() {
 
   const deleteTask = async (taskId) => {
     try {
-      await axios.delete(`http://localhost:5000/api/task/${taskId}/deleteTask`, {
+      await axios.delete(`${BACKEND_URL}/api/task/${taskId}/deleteTask`, {
         headers: { Authorization: `Bearer ${jsonwebtoken}` },
       });
       window.location.reload();
@@ -44,7 +44,7 @@ function Home() {
     // Only update if the task is not already completed.
     if (currentStatus) return;
     try {
-      await axios.put(`http://localhost:5000/api/task/${taskId}/complete`, {}, {
+      await axios.put(`${BACKEND_URL}/api/task/${taskId}/complete`, {}, {
         headers: { Authorization: `Bearer ${jsonwebtoken}` },
       });
       // Option 1: reload tasks
