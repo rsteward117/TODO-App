@@ -47,10 +47,7 @@ function Home() {
       await axios.put(`${BACKEND_URL}/api/task/${taskId}/complete`, {}, {
         headers: { Authorization: `Bearer ${jsonwebtoken}` },
       });
-      // Option 1: reload tasks
       window.location.reload();
-      // Option 2: update state directly:
-      // setTasks(tasks.map(task => task._id === taskId ? { ...task, completed: true } : task));
     } catch (err) {
       setGetErrors(err.response?.data?.message || "Failed to update task");
     }
